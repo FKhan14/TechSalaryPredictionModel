@@ -20,10 +20,23 @@ columns_to_drop = [
     "Company Name",
     "Job Description",
     "Salary Estimate",
-    "Location",
     "Headquarters",
     "Competitors",
-    "company_txt"
+    "company_txt",
+    "min_salary",
+    "max_salary",
+    "hourly",
+    "employer_provided",
+    "same_state",
+    "python_yn",
+    "R_yn",
+    "spark",
+    "aws",
+    "excel",
+    "num_comp",
+    "desc_len",
+    "job_simp"
+
 ]
 df = df.drop(columns=columns_to_drop)
 
@@ -34,9 +47,10 @@ categorical_columns = [
     "Industry",
     "Sector",
     "Revenue",
-    "job_simp",
     "seniority",
-    "job_state"
+    "job_state",
+    "Location"
+    
 ]
 
 for col in categorical_columns:
@@ -49,7 +63,7 @@ y = df['avg_salary']
 
 
 # Split the data into training and testing sets
-X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.2, random_state=1)
+X_train, X_valid, y_train, y_valid = train_test_split(X, y, test_size=0.4, random_state=1)
 
 
 
@@ -67,7 +81,7 @@ preprocessor = ColumnTransformer(
     ])
 
 # Initialize and train the Random Forest model
-rf_model = RandomForestRegressor(n_estimators=100, random_state=1)
+rf_model = RandomForestRegressor(n_estimators=300, random_state=1)
 # Bundle preprocessing and modeling code in a pipeline
 my_pipeline = Pipeline(steps=[('preprocessor', preprocessor),
                               ('model', rf_model)
